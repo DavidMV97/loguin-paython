@@ -6,6 +6,17 @@ from forms.form_master import MasterPanel
 
 class App:
     
+    def check_user_password(self):
+        user = self.user.get()
+        password = self.password.get()
+        
+        if (user == 'root' and password == '1234'):
+            self.window.destroy()
+            MasterPanel()
+        else:
+            messagebox.showerror(message='Usuario o contraseña incorrectos', title='Mensaje')
+    
+    
     def __init__(self):
         self.window = tk.Tk()
         self.window.title('Inicion de sesión')
@@ -47,8 +58,9 @@ class App:
         self.password.pack(fill=tk.X, padx=20, pady=10)
         self.password.config(show='*')
         
-        loguin = tk.Button(frame_form_fill, text='Iniciar sesion', font=('Times', 15, BOLD), bg='#3a7ff6', bd=0, fg='#fff')
+        loguin = tk.Button(frame_form_fill, text='Iniciar sesion', font=('Times', 15, BOLD), bg='#3a7ff6', bd=0, fg='#fff', command=self.check_user_password)
         loguin.pack(fill=tk.X, padx=20, pady=20)
+        loguin.bind('<Return>', (lambda event: self.check_user_password()))
         
         self.window.mainloop()
 
